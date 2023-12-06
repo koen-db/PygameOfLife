@@ -3,8 +3,8 @@ from copy import deepcopy
 from random import choice
 
 SCHERM = BREEDTE, HOOGTE = 1280,720
-SNELHEID = 10
-TEGEL = 40
+SNELHEID = 20
+TEGEL = 10
 K, R = BREEDTE // TEGEL, HOOGTE // TEGEL
 
 pygame.init()
