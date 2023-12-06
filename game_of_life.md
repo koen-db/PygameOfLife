@@ -20,6 +20,8 @@ colorlinks: true
 
 # Pygame of Life
 
+De code is ook terug te vinden op [https://github.com/koen-db/PygameOfLife](https://github.com/koen-db/PygameOfLife)
+
 ## Conway's Game of Life
 
 ## Eerst en vooral
