@@ -46,7 +46,20 @@ Om ons speelveld te maken gaan we de code inladen die `pygame` voor ons voorziet
 import pygame
 ```
 
-### 
+### Grootte en snelheid
+
+```python
+SCHERM = BREEDTE, HOOGTE = 1280,720
+SNELHEID = 10
+```
+
+### pygame
+
+```python
+pygame.init()
+speelveld = pygame.display.set_mode(SCHERM)
+klok = pygame.time.Clock()
+```
 
 
 
