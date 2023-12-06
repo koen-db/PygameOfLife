@@ -292,6 +292,8 @@ Speel eens met de waarde van `TEGEL`, probeer bijvoorbeeld eens 20 of 10.
 
 Speel ook eens met de waarde van `SNELHEID`, probeer dit eens hoger te zetten om snellere evolutie te krijgen.
 
+![random.png](./images/random.png)
+
 > Bronvermelding:
 > 
 > Dit spelletje is gebaseerd op https://github.com/StanislavPetrovV/Python-Game-of-life/ (MIT licentie). Dezelfde code werd gebruikt in een Youtube video: https://www.youtube.com/watch?v=lk1_h2_GLv8
