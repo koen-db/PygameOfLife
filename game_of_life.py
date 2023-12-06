@@ -11,6 +11,23 @@ klok = pygame.time.Clock()
 
 huidig_veld = [[(k + r) % 2 for k in range(K-1)] for r in range(R-1)]
 
+def regels(huidig_veld, x, y):
+    aantal_buren = 0
+    for j in range(y - 1, y + 2):
+        for i in range(x - 1, x + 2):
+            if huidig_veld[j][i]:
+                aantal_buren += 1
+
+    if huidig_veld[y][x]:
+        aantal_buren -= 1
+        if aantal_buren == 2 or aantal_buren == 3:
+            return 1
+        return 0
+    else:
+        if aantal_buren == 3:
+            return 1
+        return 0
+
 while True:
 
     speelveld.fill(pygame.Color('black'))

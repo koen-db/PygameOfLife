@@ -162,6 +162,41 @@ Nu nul en één zegt ons niet zo veel, het wordt mooier als we dit ook kunnen te
 ```
 ![dambord.png](./images/dambord.png)
 
+### De regels van het leven
+
+Een cel in ons raster kan 2 statussen hebben: "AAN" (`1`) of "AF" (`0`). De regels kijken altijd naar een cel in verhouding tot de 8 omliggende cellen. Cellen veranderen van status tussen beurten in, volgens deze 4 regeltjes:
+
+1. Als een cel AAN is en minder dan 2 buren heeft die ook AAN zijn, gaat de cel AF
+2. Als een cel AAN is en 2 of 3 buren heeft die AAN zijn, blijft de cel AAN
+3. Als een cel AAN is meer dan 3 buren heeft die AAN zijn, gaat de cel AF
+4. Als een cel AF is en exact 3 buren heeft die AAN zijn, gaat de cel AAN
+
+![regels.png](./images/regels.png)
+
+In python code wordt dit dan als volgt geschreven. Voor elke cel in `huidig_veld` wordt volgens de positie `x` en `y` gekeken naar de status van de omliggende buren. Als de status AAN ofwel `1` is, wordt de teller `aantal_buren` met 1 verhoogd. Dit geheel is wat een functie genoemd wordt.
+
+`... + 2` ziet er vreemd uit, maar dat is omdat `range()` telt "tot" dat getal en niet "tot en met" dat getal.
+
+Eenmaal we het aantal actieve buren hebben, kijken we naar de status van de cel zelf en hoeveel buren er actief zijn. Aan de hand daarvan passen we de status van de cel zelf aan.
+
+```python
+def regels(huidig_veld, x, y):
+    aantal_buren = 0
+    for j in range(y - 1, y + 2):
+        for i in range(x - 1, x + 2):
+            if huidig_veld[j][i]:
+                aantal_buren += 1
+
+    if huidig_veld[y][x]:
+        aantal_buren -= 1
+        if aantal_buren == 2 or aantal_buren == 3:
+            return 1
+        return 0
+    else:
+        if aantal_buren == 3:
+            return 1
+        return 0
+```
 
 
 Bronvermelding:
