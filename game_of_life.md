@@ -1,3 +1,23 @@
+---
+title: "Pygame of Life"
+author:
+  - Koen De Bruyne, CoderDojo Ichtegem
+
+# template specific settings - https://github.com/Wandmalfarbe/pandoc-latex-template#custom-template-variables
+book: true
+titlepage: true
+titlepage-rule-color: FFFFFF
+titlepage-color: 642580
+titlepage-text-color: FFFFFF
+logo-width: 10cm
+logo: "/home/k/OneDrive/coderdojo/CoderDojo_logo.png"
+heading-color: 642580
+toc-title: "Inhoudstafel"
+listings-no-page-break: true
+footnotes-pretty: true
+colorlinks: true
+---
+
 # Pygame of Life
 
 ## Conway's Game of Life
