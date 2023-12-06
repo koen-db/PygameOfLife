@@ -91,7 +91,7 @@ pygame.init()
 ...
 ```
 
-Daarna tekenen we het raster.
+Daarna tekenen we de raster.
 
 ! let op de insprong van deze lijnen, die moet even ver naar rechts staan als de `pygame.display.flip()`
 
@@ -273,6 +273,17 @@ while True:
     pygame.display.flip()
     klok.tick(SNELHEID)
 
+```
+
+### Willekeurige start
+
+Bovenaan importeren we de keuzefunctie `choice` die ons zal toelaten een willekeurige `1` of `0` te kiezen:
+```python
+from random import choice
+```
+Daarna passen we de lijn aan die het initiële veld maakt:
+```python
+huidig_veld = [[choice([0, 1]) for k in range(K)] for r in range(R)]
 ```
 
 Bronvermelding:

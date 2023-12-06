@@ -1,8 +1,9 @@
 import pygame
 from copy import deepcopy
+from random import choice
 
 SCHERM = BREEDTE, HOOGTE = 1280,720
-SNELHEID = 1
+SNELHEID = 10
 TEGEL = 40
 K, R = BREEDTE // TEGEL, HOOGTE // TEGEL
 
@@ -10,7 +11,8 @@ pygame.init()
 speelveld = pygame.display.set_mode(SCHERM)
 klok = pygame.time.Clock()
 
-huidig_veld = [[(k//(r+1)) % 2 for k in range(K)] for r in range(R)]
+# huidig_veld = [[(k//(r+1)) % 2 for k in range(K)] for r in range(R)]
+huidig_veld = [[choice([0, 1]) for k in range(K)] for r in range(R)]
 volgend_veld= [[0 for k in range(K)] for r in range(R)]
 
 def regels(huidig_veld, x, y):
