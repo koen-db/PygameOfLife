@@ -75,7 +75,38 @@ while True:
     klok.tick(SNELHEID)
 ```
 
+### Raster
 
+Om het spel duidelijker te kunnen zien gaan we een _raster_ tekenen.
+Deze waarde komt vlak na de `SNELHEID` en voor de `pygame.init()` te staan:
+
+- `TEGEL` zal de grootte zijn in pixels van elk vierkantje van de raster
+
+```python
+...
+SNELHEID = 10
+TEGEL = 40
+
+pygame.init()
+...
+```
+
+Daarna tekenen we het raster.
+
+! let op de insprong van deze lijnen, die moet even ver naar rechts staan als de `pygame.display.flip()`
+
+```python
+            ...
+            exit()
+
+    [pygame.draw.line(speelveld, pygame.Color('darkslategray'), (x, 0), (x, HOOGTE)) for x in range(0, BREEDTE, TEGEL)]
+    [pygame.draw.line(speelveld, pygame.Color('darkslategray'), (0, y), (BREEDTE, y)) for y in range(0, HOOGTE, TEGEL)]
+    
+    pygame.display.flip()
+    ...
+```
+
+![raster.png](./images/raster.png)
 
 Bronvermelding:
 
