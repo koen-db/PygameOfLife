@@ -1,7 +1,8 @@
 import pygame
+from copy import deepcopy
 
 SCHERM = BREEDTE, HOOGTE = 1280,720
-SNELHEID = 10
+SNELHEID = 1
 TEGEL = 40
 K, R = BREEDTE // TEGEL, HOOGTE // TEGEL
 
@@ -9,7 +10,8 @@ pygame.init()
 speelveld = pygame.display.set_mode(SCHERM)
 klok = pygame.time.Clock()
 
-huidig_veld = [[(k + r) % 2 for k in range(K-1)] for r in range(R-1)]
+huidig_veld = [[(k//(r+1)) % 2 for k in range(K)] for r in range(R)]
+volgend_veld= [[0 for k in range(K)] for r in range(R)]
 
 def regels(huidig_veld, x, y):
     aantal_buren = 0
@@ -42,6 +44,10 @@ while True:
         for y in range(1, R - 1):
             if huidig_veld[y][x]:
                 pygame.draw.rect(speelveld, pygame.Color('forestgreen'), (x * TEGEL + 2, y * TEGEL + 2, TEGEL - 2, TEGEL - 2))
+            volgend_veld[y][x] = regels(huidig_veld, x, y)
+    
+    # Het 'volgende' veld wordt nu het 'huidige' veld
+    huidig_veld = deepcopy(volgend_veld)
     
     pygame.display.flip()
     klok.tick(SNELHEID)
