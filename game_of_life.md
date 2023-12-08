@@ -22,9 +22,36 @@ colorlinks: true
 
 De code is ook terug te vinden op [https://github.com/koen-db/PygameOfLife](https://github.com/koen-db/PygameOfLife)
 
-## Conway's Game of Life
+## Info: Conway's Game of Life
 
-## Eerst en vooral
+_Game of Life_[^1], soms kortweg _Life_ genoemd, is een in 1970 door de Britse wiskundige John Conway bedachte cellulaire automaat, een tweedimensionaal raster met vierkante 'cellen' die 'levend' of 'dood' kunnen zijn, en die zich volgens vastgestelde regels ontwikkelen en daarbij allerlei patronen kunnen vormen.
+
+![By Thane Plambeck - &quot;https://www.flickr.com/photos/thane/20366806/&quot;, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=13076802](../../OneDrive/coderdojo/Pygame of Life/images/576px-John_H_Conway_2005.jpg "By Thane Plambeck - &quot;https://www.flickr.com/photos/thane/20366806/&quot;, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=13076802")
+
+Er wordt gewerkt op een raster van vierkante cellen. Het raster is onbegrensd, dus oneindig groot. Elke cel kan zich in twee toestanden bevinden: een cel is gekleurd of wit.
+
+Nadat een aantal cellen van een raster is ingekleurd, begint het spel. Game of Life werkt met 'generaties'; om te bepalen of een cel gekleurd ('levend') is of wit ('dood') in de volgende generatie wordt er een aantal regels toegepast aan de hand van de status (levend of dood) die de buurcellen hebben. Elke cel heeft 8 buurcellen.
+
+* Als een cel door 2 of 3 gekleurde buurcellen omgeven wordt, blijft deze cel zelf ook gekleurd, zoals in het voorbeeld hieronder.
+
+![Blijvenleven.png](../../OneDrive/coderdojo/Pygame of Life/images/Blijvenleven.png)
+
+In deze afbeelding blijft de middelste cel gekleurd, want de cel wordt omgeven door 2 andere gekleurde cellen.
+
+* Als een cel door 4 of meer gekleurde buurcellen omgeven wordt, gaat deze cel dood door 'overbevolking' (dat wil zeggen, de cel wordt wit). Als een cel door minder dan twee gekleurde buurcellen omgeven wordt, gaat deze cel ook dood, maar dan door eenzaamheid. Zie voorbeeld hieronder.
+
+![Doodgaan.png](../../OneDrive/coderdojo/Pygame of Life/images/Doodgaan.png)
+
+In deze afbeelding gaat de middelste cel dood, want de cel wordt door meer dan 3 of minder dan 2 gekleurde cellen omgeven.
+
+* Als een dode cel wordt omgeven door precies 3 gekleurde buurcellen, wordt deze dode cel ook gekleurd ('geboren'), zoals in het voorbeeld hieronder.
+
+![Geborenworden.png](../../OneDrive/coderdojo/Pygame of Life/images/Geborenworden.png)
+
+In deze afbeelding wordt de middelste cel geboren, want de cel wordt door exact 3 gekleurde cellen omgeven.
+Al deze transformaties geschieden gelijktijdig voor alle cellen.
+
+## Het spel: eerst en vooral
 
 Voor we van start gaan hebben we een aantal zaken nodig. Die zul je op je computer moeten installeren.
 
@@ -44,6 +71,8 @@ Je kan dit installeren door in de _commandoprompt_ het volgende in te tikken:
 
 `pip install pygame`
 
+Je bekomt een _commandopromt_ door in Windows het `Windows`-symbool samen met de `R` toets in te duwen, en daarna `cmd` in te tikken.
+
 ```
 pip install pygame
 Collecting pygame
@@ -62,13 +91,15 @@ Successfully installed pygame-2.5.2
 
 ### Import
 
-Om ons speelveld te maken gaan we de code inladen die `pygame` voor ons voorziet.
+Om ons sptel te maken gaan we de code inladen die `pygame` voor ons voorziet.
 
 ```python
 import pygame
 ```
 
 ### Grootte en snelheid
+
+We maken een aantal variabelen: eentje voor de grootte van het scherm (in pixels) en eentje voor de snelheid: 10 frames per seconde.
 
 ```python
 SCHERM = BREEDTE, HOOGTE = 1280,720
@@ -77,6 +108,8 @@ SNELHEID = 10
 
 ### pygame
 
+We starten daarna `pygame` op, maken een speelveld met de `SCHERM` parameter en maken een klok die de tijd van het spel zal bijhouden.
+
 ```python
 pygame.init()
 speelveld = pygame.display.set_mode(SCHERM)
@@ -84,6 +117,15 @@ klok = pygame.time.Clock()
 ```
 
 ### Spellus
+
+De spellus is een eindeloze lus, die dus de ganse tijd herhaalt. Die maken we door `while True:` op een lijn te zetten.
+
+In Python zetten we de lijnen eronder telkens met 4 spaties ervoor, zolang die lijnen in de lus moeten uitgevoerd worden.
+
+- `speelveld.fill` zal het kader opvullen met zwart.
+- `for event...` zorgt ervoor dat we het spel kunnen afsluiten, let hier ook telkens op de 4 spaties telkens er een nieuwe lijn komt.
+- `pygame.display.flip` zal het scherm tekenen
+- `klok.tick()` zegt dan weer tegen het spel dat er een volgende fase mag ingegaan worden.
 
 ```python
 while True:
@@ -147,6 +189,8 @@ De volgende code maakt een raster zo groot als ons speelveld en vult dit op met 
 ```python
 huidig_veld = [ [(k // (r+1) ) % 2 for k in range(K)] for r in range(R)]
 ```
+
+Dit maakt de volgende tekening:
 ```
 [
 [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -186,7 +230,7 @@ Nu nul en één zegt ons niet zo veel, het wordt mooier als we dit ook kunnen te
 ```
 ![patroon.png](./images/patroon.png)
 
-### De regels van het leven
+### De regels van het leven in code
 
 Een cel in ons raster kan 2 statussen hebben: "AAN" (`1`) of "AF" (`0`). De regels kijken altijd naar een cel in verhouding tot de 8 omliggende cellen. Cellen veranderen van status tussen beurten in, volgens deze 4 regeltjes:
 
@@ -319,3 +363,5 @@ Speel ook eens met de waarde van `SNELHEID`, probeer dit eens hoger te zetten om
 > Bronvermelding:
 > 
 > Dit spelletje is gebaseerd op https://github.com/StanislavPetrovV/Python-Game-of-life/ (MIT licentie). Dezelfde code werd gebruikt in een Youtube video: https://www.youtube.com/watch?v=lk1_h2_GLv8
+
+[^1]: [Game of Life, Wikipedia](https://nl.wikipedia.org/wiki/Game_of_Life) 
